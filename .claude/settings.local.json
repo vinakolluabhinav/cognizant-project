@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Directory -Force)",
+      "Bash(Select-Object -ExpandProperty Name)",
+      "Bash(dir \"C:\\\\Project_Final\\\\claude_01\\\\.claude\\\\worktrees\\\\friendly-yalow-6a1f0c\" /b)",
+      "Bash(find \"C:/Project_Final/claude_01/.claire/worktrees/friendly-yalow-6a1f0c/Module_2.1\" -name \"*.java\" 2>/dev/null | head -5; find \"C:/Project_Final/claude_01/.claude/worktrees/friendly-yalow-6a1f0c/Module_2.1\" -name \"*.java\" 2>/dev/null | head -20)"
+    ]
+  }
+}

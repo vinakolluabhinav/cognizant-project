@@ -1,0 +1,17 @@
+# Maven
+**/node_modules/
+**/target/
+
+# IDEs
+/.idea/
+/.vscode/
+*.iml
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+

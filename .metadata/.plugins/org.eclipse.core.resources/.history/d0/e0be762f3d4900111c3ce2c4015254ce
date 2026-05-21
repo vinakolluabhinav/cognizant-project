@@ -1,0 +1,56 @@
+package com.example.deposit.controller;
+
+import com.example.deposit.dto.AccountResponse;
+import com.example.deposit.dto.CasaAccountRequest;
+import com.example.deposit.dto.TermDepositRequest;
+import com.example.deposit.entity.DepositAccount;
+import com.example.deposit.entity.TermDeposit;
+import com.example.deposit.service.AccountService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
+
+@RestController
+@RequestMapping("/api/v1/accounts")
+public class AccountController {
+
+    private final AccountService accountService;
+
+    public AccountController(AccountService accountService) {
+        this.accountService = accountService;
+    }
+
+    @PostMapping("/casa")
+    public ResponseEntity<AccountResponse> createCasaAccount(@RequestBody CasaAccountRequest request) {
+        return ResponseEntity.ok(accountService.createCasaAccount(request));
+    }
+
+    @PostMapping("/term-deposit")
+    public ResponseEntity<AccountResponse> createTermDepositAccount(@RequestBody TermDepositRequest request) {
+        return ResponseEntity.ok(accountService.createTermDepositAccount(request));
+    }
+
+    @GetMapping("/{accountId}")
+    public ResponseEntity<DepositAccount> getDepositAccountById(@PathVariable Long accountId) {
+        return ResponseEntity.ok(accountService.getDepositAccountById(accountId));
+    }
+
+    @GetMapping("/term-deposit/{accountId}")
+    public ResponseEntity<TermDeposit> getTermDepositByAccountId(@PathVariable Long accountId) {
+        return ResponseEntity.ok(accountService.getTermDepositByAccountId(accountId));
+    }
+
+    @GetMapping("/term-deposit/by-tdid/{tdId}")
+    public ResponseEntity<TermDeposit> getTermDepositByTdId(@PathVariable Long tdId) {
+        return ResponseEntity.ok(accountService.getTermDepositByTdId(tdId));
+    }
+
+    @PatchMapping("/{accountId}/balance")
+    public ResponseEntity<Void> updateBalance(
+            @PathVariable Long accountId,
+            @RequestParam BigDecimal balance) {
+        accountService.updateBalance(accountId, balance);
+        return ResponseEntity.ok().build();
+    }
+}

@@ -1,0 +1,111 @@
+server:
+  port: 8079
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOriginPatterns:
+              - "http://localhost:3000"
+              - "http://localhost:4200"
+              - "http://localhost:5173"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - PATCH
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+            maxAge: 3600
+      routes:
+        # IAM Service - public auth endpoints
+        - id: iam-auth
+          uri: lb://iam-service
+          predicates:
+            - Path=/api/v1/auth/**
+        # IAM Service - user management
+        - id: iam-users
+          uri: lb://iam-service
+          predicates:
+            - Path=/api/v1/users/**
+        # Customer Onboarding Service
+        - id: customer-onboarding
+          uri: lb://customer-onboarding-service
+          predicates:
+            - Path=/api/v1/customer-reference/**
+        # CASA Service
+        - id: casa-service
+          uri: lb://casa-service
+          predicates:
+            - Path=/api/v1/accounts/**
+        # Product Config Service
+        - id: product-config
+          uri: lb://product-config-service
+          predicates:
+            - Path=/api/v1/products/**
+        # Transaction Service
+        - id: transaction-service
+          uri: lb://transaction-service
+          predicates:
+            - Path=/api/v1/transactions/**
+        # GL Posting (part of transaction service)
+        - id: gl-posting
+          uri: lb://transaction-service
+          predicates:
+            - Path=/api/v1/gl-postings/**
+        # Interest Service
+        - id: interest-service
+          uri: lb://interest-service
+          predicates:
+            - Path=/api/v1/interest/**
+        # Hold/Lien & Standing Instructions Service
+        - id: hold-lien-holds
+          uri: lb://hold-lien-service
+          predicates:
+            - Path=/api/v1/holds/**
+        - id: hold-lien-si
+          uri: lb://hold-lien-service
+          predicates:
+            - Path=/api/v1/standing-instructions/**
+        # TD Servicing
+        - id: td-servicing
+          uri: lb://td-servicing-service
+          predicates:
+            - Path=/api/v1/td/**
+        # Statements & Reports
+        - id: statements
+          uri: lb://statements-service
+          predicates:
+            - Path=/api/v1/statements/**
+        - id: reports
+          uri: lb://statements-service
+          predicates:
+            - Path=/api/v1/reports/**
+        # Notifications
+        - id: notifications
+          uri: lb://notifications-service
+          predicates:
+            - Path=/api/v1/notifications/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+
+jwt:
+  secret: depositcorex-jwt-secret-key-must-be-at-least-256-bits-long-for-hmac
+
+logging:
+  level:
+    org.springframework.cloud.gateway: INFO

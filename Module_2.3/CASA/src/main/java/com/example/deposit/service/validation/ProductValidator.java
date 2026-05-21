@@ -1,0 +1,34 @@
+package com.example.deposit.service.validation;
+
+import com.example.deposit.client.ProductDTO;
+import com.example.deposit.exception.ValidationException;
+import org.springframework.stereotype.Component;
+
+@Component
+public class ProductValidator {
+
+    public void validateForCasa(ProductDTO product) {
+        if (!"ACTIVE".equalsIgnoreCase(product.getStatus())) {
+            throw new ValidationException("Product is not active");
+        }
+//        if (!"CASA".equalsIgnoreCase(product.getCategory())) {
+//            throw new ValidationException("Invalid product for CASA account creation");
+//        }
+        
+        
+         String category = product.getCategory();
+         if (!("SAVINGS".equalsIgnoreCase(category) || "CURRENT".equalsIgnoreCase(category))) {
+        	 throw new ValidationException("Invalid product for CASA account creation");
+         }
+    }
+
+    public void validateForTermDeposit(ProductDTO product) {
+        if (!"ACTIVE".equalsIgnoreCase(product.getStatus())) {
+            throw new ValidationException("Product is not active");
+        }
+        String category = product.getCategory();
+        if (!("FD".equalsIgnoreCase(category) || "RD".equalsIgnoreCase(category))) {
+            throw new ValidationException("Invalid product for Term Deposit creation");
+        }
+    }
+}

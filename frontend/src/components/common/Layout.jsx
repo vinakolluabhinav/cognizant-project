@@ -1,0 +1,17 @@
+import Sidebar     from './Sidebar'
+import AIAssistant from './AIAssistant'
+
+export default function Layout({ children }) {
+  return (
+    <div className="flex h-screen overflow-hidden">
+      <Sidebar />
+      <main className="flex-1 overflow-y-auto bg-gray-50">
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          {children}
+        </div>
+      </main>
+      {/* AI Assistant floats over all pages */}
+      <AIAssistant />
+    </div>
+  )
+}
