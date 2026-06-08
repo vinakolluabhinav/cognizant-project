@@ -297,3 +297,9 @@ Step 5: Start the Presentation Web InterfaceNavigate to the frontend project pat
 npm install
 npm run dev
 The interactive React UI interface runs on: http://localhost:5173AuthorSurya — Module 2.5 (Transaction Service Lead)Built with care as a core full-stack milestone implementation component for the DepositCoreX Distributed Banking Microservices Platform project landscape
+The interactive React UI interface runs on: http://localhost:5173
+
+Author
+Abhinav — Module 2.7,2.10
+
+Built with care as a core full-stack milestone implementation component for the DepositCoreX Distributed Banking Microservices Platform project landscape.
